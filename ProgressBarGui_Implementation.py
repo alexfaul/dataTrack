@@ -136,12 +136,25 @@ class ProgressBar:
             self.button_dict[self.step-1]['image'] = self.completed_image
             return
 
-        if self.step != 0: #FIRST STEP
+        if self.step != 0: # AFTER FIRST STEP
             self.button_dict[self.step - 1]['image'] = self.completed_image
             self.button_dict[self.step - 1]['state'] = "disabled"
+            print("After if self.step != 0, self.step is", self.step)
+
+        #Initialize first button
+        print("right here, self.step is",self.step)
         self.button_dict[self.step].place(x=self.step * self.button_distance + self.initial_padding, y=70)
         self.button_dict[self.step]['command'] = fn
+        print("self.step is", self.step)
+
+        if self.completion_list[self.step] == 1:
+            self.button_dict[self.step]['image'] = self.completed_image
+            self.button_dict[self.step]['state'] = "disabled"
+            self.step = self.step + 1
+            self.runNextStep(self.preprocessing_functions[self.step])
+            return
         self.step = self.step + 1
+
 
 
     def stepFailed(self):
